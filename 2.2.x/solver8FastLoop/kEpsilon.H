@@ -125,7 +125,7 @@ if (turbulence)
     Ew = 12.0*Cw*mut*k/pow(da, 2.0);
 
     volScalarField Ik =
-      - 2.0*(k - kineticTheory.ksg())/(kineticTheory.tausg() + tausgSmall)
+      - (2.0*k - kineticTheory.ksg())/(kineticTheory.tausg() + tausgSmall)
       + (Ew/rho2);
      
 
