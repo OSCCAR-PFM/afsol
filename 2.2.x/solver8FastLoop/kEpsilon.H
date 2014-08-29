@@ -26,27 +26,7 @@ if (turbulence)
     
     dimensionedScalar da(phase1Dictionary.lookup("d"));
 
-    /*
-    dimensionedScalar ST = pow(da, 2.0)*Vave*rho1/(18.0*rho2*nu2*2.0*R);
-
-    volScalarField tauc = da/(24*alpha1*g0)*sqrt(M_PI/Theta);
-    volScalarField tauD = alpha1*rho1/(K*(1 - alpha1));
-
-    volScalarField tausg = tauD;
-
-    if (ST.value()<100)
-    {
-        tausg = tauD;
-    }
-    else 
-    {
-        tausg = tauc;
-    }
-
-    volScalarField ksg(sqrt(6.0*k*Theta));
-    */
-
-
+    
     dimensionedScalar tausgSmall
     (
         "small",
