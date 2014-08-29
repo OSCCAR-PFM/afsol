@@ -1,0 +1,71 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.2.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    object      U1;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions          [ 0 1 -1 0 0 0 0 ];
+
+internalField       uniform (19 0 0);
+
+boundaryField
+{
+     bottom
+    {
+        type            particleSlipSchneiderbauerSchellander;
+        restitutionCoefficient 0.9;
+        alpha2            0.4;
+        muF               0.2;
+       // gama              0.0;
+        sigma             3.5;
+        //muS             0.5;
+        //specularityCoefficient 0.15;
+        value           $internalField;
+      //  type               zeroGradient;
+    }
+        
+
+    top
+    {
+        type            particleSlipSchneiderbauerSchellander;
+        restitutionCoefficient 0.9;
+        alpha2            0.4;
+        muF               0.2;
+       // gama              0.0;
+        sigma            3.5;
+       // muS             0.5;
+       //specularityCoefficient 0.15;
+        value           $internalField;
+      //  type               zeroGradient;
+    }
+        
+
+    inlet
+    {
+        type               fixedValue;
+        value              uniform (19 0 0);
+    }
+
+     outlet
+    {
+        type               pressureInletOutletVelocity;
+        phi                phi1;
+        value              $internalField;
+    }
+
+frontBack
+    {
+        type                empty;
+    }
+}
+ 

@@ -1,0 +1,10 @@
+particleSlipJohnsonJackson/particleSlipJohnsonJacksonFvPatchVectorField.C
+particleThetaJohnsonJackson/particleThetaJohnsonJacksonFvPatchScalarField.C
+
+particleSlipSchneiderbauerSchellander/particleSlipSchneiderbauerSchellanderFvPatchVectorField.C
+particleThetaSchneiderbauerSchellander/particleThetaSchneiderbauerSchellanderFvPatchScalarField.C
+
+rampFixedValue/rampFixedValueFvPatchFields.C
+
+
+LIB = $(FOAM_USER_LIBBIN)/libSchneiderbauerSoleimaniAFC1

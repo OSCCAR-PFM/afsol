@@ -1,0 +1,127 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.2.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 1.0;
+
+vertices
+(
+
+    (0      0     0)
+    (6      0     0)
+    (6      0     0.035)
+    (0      0      0.035)
+    (0      0.35    0)
+    (6      0.35    0)
+    (6      0.35   0.035)
+    (0      0.35    0.035)
+
+);
+
+//          7 ---------- 6
+//         /|           /|
+//        / |          / |   z
+//       3 ---------- 2  |   ^
+//       |  |         |  |   |   y
+//       |  4 --------|- 5   |  /
+//       | /          | /    | /
+//       |/           |/     |/
+//       0 ---------- 1      -----> x
+blocks
+(
+    hex (0 1 5 4 3 2 6 7) (3428 1 20) simpleGrading (1 1 1)
+);
+
+edges
+(
+);
+
+boundary
+(
+    top
+    {
+        type wall;
+        faces
+        (
+            (3 7 6 2)
+        );
+    }
+
+    bottom
+    {
+        type wall;
+        faces
+        (
+            (0 1 5 4)
+        );
+    }
+
+    inlet
+    {
+        type patch;
+        faces
+        (
+             (0 4 7 3)
+        );
+    }
+
+
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (1 5 6 2)
+            
+        );
+    }
+
+   
+
+    frontBack
+    {
+        type empty;
+        faces
+        (
+            (0 1 2 3)
+            (4 5 6 7)
+        );
+    }
+);
+
+/*patches         
+(
+    patch inlet 
+    (
+        (0 4 7 3)
+    )
+    patch outlet 
+    (
+        (1 5 6 2)
+    )
+    wall walls 
+    (
+        (3 2 6 7)
+        (0 1 5 4)
+    )
+    wall frontAndBackPlanes
+    (
+        (0 1 2 3)
+        (4 5 6 7)
+    )
+);*/
+
+
+// ************************************************************************* //
