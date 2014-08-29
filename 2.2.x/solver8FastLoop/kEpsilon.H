@@ -145,7 +145,7 @@ if (turbulence)
       ==
         (C1*G*epsilon/k)
       - fvm::Sp(C2*epsilon/k, epsilon)
-      + fvm::Sp(scalar(2.5)*Ik*alpha1/(k*(1-alpha1)), epsilon) 
+      + fvm::Sp(scalar(2.5)*Ik/(k*(1-alpha1)), epsilon) 
     );
 
     // Info<< "Step 16" << endl;
