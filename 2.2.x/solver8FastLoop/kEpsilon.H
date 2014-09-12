@@ -86,23 +86,30 @@ if (turbulence)
     // Nr. 0, after Lun, C. (2000), "Numerical simulation of dilute turbulent
     // gas-solid flows". Int J Multiphase Flow 26, 1707-1736. Hence, constant
     // is named "CLun", after Lun.
-    dimensionedScalar CLun
+   /* dimensionedScalar CLun
     (
         "CLun",
         dimMass/dimLength/dimTime,
         scalar(1.2)
-    );
+    );*/
+    
+    Info<<"dist: "<<Rep<<"\n";
 
     tmp <volScalarField> mut =
-        (
+         (
+            pos(sign(Rep))*(1.0 - pos(sign(Rep - 150.0*ones)))
+        )*rho2*nu2
+        
+        +(
             pos(sign(Rep - 150.0*ones))*(1.0 - pos(sign(Rep - 310.0*ones)))
         )*0.017*Rep*rho2*nu2
       + (
             pos(sign(Rep - 310.0*ones))*(1.0 - pos(sign(Rep - 610.0*ones)))
-        )*(CLun + pow(Rep, 2.0)*rho2*nu2)
+       // )*(CLun*rho2*nu2 + pow(Rep, 2.0)*rho2*nu2)
+       )*(1.2*rho2*nu2 + pow(Rep, 2.0)*rho2*nu2)
       + pos(sign(Rep - 610.0*ones))*0.029*Rep*rho2*nu2;
 
-    Ew = 12.0*Cw*mut*k/pow(da, 2.0);
+    Ew = 12.0*Cw*mut*k*alpha1/pow(da, 2.0);
 
     volScalarField Ik =
       - (2.0*k - kineticTheory.ksg())/(kineticTheory.tausg() + tausgSmall)
@@ -125,7 +132,7 @@ if (turbulence)
       ==
         (C1*G*epsilon/k)
       - fvm::Sp(C2*epsilon/k, epsilon)
-      + fvm::Sp(scalar(1.2)*Ik/(k*(1-alpha1)), epsilon) 
+      + fvm::Sp(scalar(1.2)*Ik/(k), epsilon) 
     );
 
     // Info<< "Step 16" << endl;
@@ -153,6 +160,7 @@ if (turbulence)
         G
       - fvm::Sp(epsilon/k, k)
       + fvm::Sp(Ik/(k*(1 - alpha1)), k)
+
     );
 
     kEqn.relax();

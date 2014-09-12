@@ -386,7 +386,7 @@ void Foam::kineticTheoryModel::solve(const volTensorField& gradU1t)
     Info<< "Step 2" << endl;
     volScalarField tauc_ = da_*sqrt(M_PI)/(24*(alpha1_+1.0e-6)*gs0_*ThetaSqrt);
     Info<< "Step 3" << endl;
-    volScalarField tauD_ = rho1_/((drag1_.K(Ur))*(1-alpha1_));
+    volScalarField tauD_ = rho1_*(alpha1_+1.0e-6)/((drag1_.K(Ur));
     Info<< "Step 4" << endl;
     
      tausg_ = tauc_;
